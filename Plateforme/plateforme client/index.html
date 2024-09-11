@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Clients</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
+    <title>Interactions Plateforme Operator</title>
+</head>
+<body> 
+  <nav>
+    <div class="nav__logo">
+      <div>C</div>
+      lient Plateforme
+    </div>
+    <ul class="nav__socials">
+      <li>
+        <a href="#"><i class="ri-twitter-fill"></i></a>
+      </li>
+      <li>
+        <a href="#"><i class="ri-facebook-circle-fill"></i></a>
+      </li>
+      <li>
+        <a href="#"><i class="ri-pinterest-line"></i></a>
+      </li>
+      <li>
+        <a href="#"><i class="ri-instagram-line"></i></a>
+      </li>
+    </ul>
+    <div class="nav__contact">
+      <div class="nav__contact__card">
+        <span><i class="ri-phone-line"></i></span>
+        <div>
+          <p>Call CI</p>
+          <h4>+225 070 849 4827</h4>
+        </div>
+      </div>
+      <div class="nav__contact__card">
+        <span><i class="ri-mail-line"></i></span>
+        <div>
+          <p>Email CI</p>
+          <h4>info@abolou.com</h4>
+        </div>
+      </div>
+    </div>
+  </nav>  
+    <div class="container">
+        <div class="sidebar">
+            <h2>Interface Abonnés</h2>
+            <ul>
+                <li><a href="#" id="new-client-btn">Évolution du traitement de dossier</a></li>
+                <li><a href="#" id="new-reclamation-btn">Créer une réclamation client</a></li>
+                <li><a href="#" id="view-reclamations-btn">Voir les réclamations clients</a></li>
+                <li><a href="#" id="new-declaration-btn">Créer une déclaration de panne</a></li>
+                <li><a href="#" id="view-declarations-btn">Voir les déclarations de panne</a></li>
+                <li><a href="#" id="assistance">Assistance techniques</a></li>
+                <li><a href="#" id="lienDeconnexion">Déconnexion</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div id="welcome-message" class="scrolling-message">
+                <span id="message-content" class="message-content">
+                    <!-- The greeting will be dynamically inserted here -->
+                    <!-- The rest of the message follows -->
+                </span>
+            </div>
+
+            <div id="notification" class="notification hidden"></div>
+            <div id="client-form" class="hidden">
+              <h2>Consulter Dossier</h2>
+              <form id="consultationForm">
+                  <label for="nomPrenoms">Nom & Prénoms:</label>
+                  <input type="text" id="nomPrenoms" name="nomPrenoms" required><br>
+                  
+                  <label for="contacts">Contacts:</label>
+                  <input type="text" id="contacts" name="contacts" required><br>
+                  
+                  <label for="localisation">Localisation client:</label>
+                  <input type="text" id="localisation" name="localisation" required><br>
+                  
+                  <label for="service">Service souhaité:</label>
+                  <input type="text" id="service" name="service" required><br>
+                  
+                  <label for="forfait">Forfait payé:</label>
+                  <input type="text" id="forfait" name="forfait" required><br>
+                  <button type="submit">Rechercher</button>
+
+                  <h3>Historique des Actions</h3>
+                  <div id="historique-timeline" class="hidden"></div>
+                  <h3>Historique des tickets: Maintenance</h3>
+                  <div id="maintenance-timeline" class="hidden"></div> 
+              </form>
+              
+            </div>
+
+            <div id="reclamation-form" class="hidden">
+                <h2>Créer une réclamation client</h2>
+                <form id="new-reclamation-form" class="form-grid">
+                    <label for="ID_Ticket_REC-id">ID_Ticket REC (identifiant unique):</label>
+                    <input type="text" id="ID_Ticket_REC-id" name="ID_Ticket_REC-id" required readonly>
+                    <label for="reclamation-date">Date d’enregistrement:</label>
+                    <input type="date" id="reclamation-date" name="reclamation-date" required>
+                    <label for="reclamation-id-ticket">ID Ticket:</label>
+                    <input type="text" id="reclamation-id-ticket" name="reclamation-id-ticket" required readonly>
+                    <label for="reclamation-nom">Nom & prénoms :</label>
+                    <input type="text" id="reclamation-nom" name="reclamation-nom" required>
+                    <label for="reclamation-contact">Contact:</label>
+                    <input type="text" id="reclamation-contact" name="reclamation-contact" required>
+                    <label for="reclamation-localisation">Localisation client:</label>
+                    <input type="text" id="reclamation-localisation" name="reclamation-localisation" required>
+                    <label for="reclamation-service">Service souhaité:</label>
+                    <input type="text" id="reclamation-service" name="reclamation-service" required>
+                    <label for="reclamation-forfait">Forfait payé:</label>
+                    <input type="text" id="reclamation-forfait" name="reclamation-forfait" required>
+                    <label for="reclamation-sn">SN du client:</label>
+                    <input type="text" id="reclamation-sn" name="reclamation-sn" required>
+                    <label for="reclamation-statut">Statut du dossier:</label>
+                    <input type="text" id="reclamation-statut" name="reclamation-statut" required>
+                    <label for="reclamation-observation">Observations:</label>
+                    <textarea id="reclamation-observation" name="reclamation-observation"></textarea>
+                    <button type="submit">Enregistrer</button>
+                    <button type="reset">Effacer</button>
+                </form>
+            </div>
+
+            <div id="declaration-form" class="hidden">
+                <h2>Créer une déclaration de panne</h2>
+                <form id="new-declaration-form" class="form-grid">
+                    <label for="ID_Ticket_DPC-id">ID_Ticket DPC (identifiant unique):</label>
+                    <input type="text" id="ID_Ticket_DPC-id" name="ID_Ticket_DPC-id" required readonly>
+                    <label for="declaration-date">Date d’enregistrement:</label>
+                    <input type="date" id="declaration-date" name="declaration-date" required>
+                    <label for="declaration-nom">Nom & prénoms :</label>
+                    <input type="text" id="declaration-nom" name="declaration-nom" required>
+                    <label for="declaration-contact">Contacts:</label>
+                    <input type="text" id="declaration-contact" name="declaration-contact" required>
+                    <label for="declaration-localisation">Localisation client:</label>
+                    <input type="text" id="declaration-localisation" name="declaration-localisation" required>
+                    <label for="declaration-probleme">Nature du problème:</label>
+                    <input type="text" id="declaration-probleme" name="declaration-probleme" required>
+                    <label for="declaration-statut">Statut du Ticket:</label>
+                    <input type="text" id="declaration-statut" name="declaration-statut" required>
+                    <label for="declaration-observation">Observations:</label>
+                    <textarea id="declaration-observation" name="declaration-observation"></textarea>
+                    <button type="submit">Enregistrer</button>
+                    <button type="reset">Effacer</button>
+                </form>
+            </div>
+
+            <div id="reclamation-list" class="hidden">
+                <h2>Liste des réclamations clients</h2>
+                <input type="text" id="reclamation-search" placeholder="Rechercher des réclamations...">
+                <div id="reclamation-categories">
+                    <h2>Catégories</h2>
+                    <ul>
+                        <li><span id="prise-en-main-count-reclamation">0</span> Prise en main</li>
+                        <li><span id="en-cours-count-reclamation">0</span> En cours</li>
+                        <li><span id="probleme-count-reclamation">0</span> Dossier à problème</li>
+                        <li><span id="cloture-count-reclamation">0</span> Traité/Clôturé</li>
+                    </ul>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Ticket</th>
+                            <th>Nom</th>
+                            <th>Contact</th>
+                            <th>Service</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reclamation-table-body">
+                        <!-- Les réclamations seront ajoutées ici -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="declaration-list" class="hidden">
+                <h2>Liste des déclarations de panne</h2>
+                <input type="text" id="declaration-search" placeholder="Rechercher des déclarations...">
+                <div id="declaration-categories">
+                    <h2>Catégories</h2>
+                    <ul>
+                        <li><span id="prise-en-main-count-declaration">0</span> Prise en main</li>
+                        <li><span id="en-cours-count-declaration">0</span> En cours</li>
+                        <li><span id="probleme-count-declaration">0</span> Dossier à problème</li>
+                        <li><span id="cloture-count-declaration">0</span> Traité/Clôturé</li>
+                    </ul>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Ticket</th>
+                            <th>Nom</th>
+                            <th>Contact</th>
+                            <th>Nature du problème</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="declaration-table-body">
+                        <!-- Les déclarations seront ajoutées ici -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <div class="nav__logo">
+          <div>O</div>
+          perator
+        </div>
+        <ul class="nav__socials">
+          <li>
+            <a href="#"><i class="ri-twitter-fill"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="ri-facebook-circle-fill"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="ri-pinterest-line"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="ri-instagram-line"></i></a>
+          </li>
+        </ul>
+        <div class="nav__contact">
+          <div class="nav__contact__card">
+            <span><i class="ri-phone-line"></i></span>
+            <div>
+              <p>Call CI</p>
+              <h4>+225 070 849 4827</h4>
+            </div>
+          </div>
+          <div class="nav__contact__card">
+            <span><i class="ri-mail-line"></i></span>
+            <div>
+              <p>Email CI</p>
+              <h4>info@abolou.com</h4>
+            </div>
+          </div>
+        </div>
+      </nav>
+    
+    <script src="script.js"></script>
+    <script>
+        function deleteRow(button) {
+            const row = button.closest('tr'); // Find the closest <tr> to the button
+            if (row) {
+                row.remove(); // Remove the row from the table
+            }
+        }
+        
+        function updateReclamationList(data) {
+            const tableBody = document.getElementById('reclamation-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+        
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id_ticket}</td>
+                    <td>${item.nom}</td>
+                    <td>${item.contact}</td>
+                    <td>${item.service}</td>
+                    <td>${item.statut}</td>
+                    <td><button onclick="deleteRow(this)">Effacer</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } 
+        function updateDeclarationList(data) {
+            const tableBody = document.getElementById('declaration-table-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+        
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id_ticket}</td>
+                    <td>${item.nom}</td>
+                    <td>${item.contact}</td>
+                    <td>${item.service}</td>
+                    <td>${item.statut}</td>
+                    <td><button onclick="deleteRow(this)">Effacer</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }   
+        // Call the function to populate the table
+    
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const greetingElement = document.createElement('span');
+            const messageContent = document.getElementById('message-content');
+
+            function updateGreeting() {
+                const hours = new Date().getHours();
+                if (hours < 12) {
+                    greetingElement.textContent = 'Bonjour, bienvenue ! ';
+                } else {
+                    greetingElement.textContent = 'Bonsoir, bienvenue ! ';
+                }
+                greetingElement.style.display = 'inline'; // Ensure it is displayed inline
+            }
+
+            updateGreeting(); // Update the greeting at page load
+
+            // Add the rest of the message content
+            messageContent.innerHTML = `${greetingElement.outerHTML} Cette plateforme est dédiée aux Commerciaux, aux équipes techniques, aux coordinatrices des équipes et aux services après vente (SAV) de l’opérateur pour le traitement des dossiers clients FTTH. Aussi pour recevoir les requêtes, réclamations, relances et pannes des clients. <span class="deadline">Deadline de traitement de requêtes: -Demande d’installation FTTH : 72 Heures après l’enregistrement de la demande; -Demande d’activation de services : 24 Heures après l’enregistrement de la demande; -Demande de maintenance : 48 Heures après l’enregistrement de la demande.</span>`;
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.sidebar a');
+        
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+        
+                    // Remove 'active' class from all links
+                    links.forEach(link => link.classList.remove('active'));
+        
+                    // Add 'active' class to the clicked link
+                    link.classList.add('active');
+                });
+            });
+        });  
+    </script>
+  <script>
+    document.getElementById("lienDeconnexion").onclick = function() {
+      window.location.href = "index_acceuil.html";
+  };  
+  </script>
+  <script>
+    document.getElementById('consultationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const idDossier = document.getElementById('nomPrenoms').value;
+
+    // Simuler la récupération des données depuis la base de données
+    const historique = [
+        { date: '2024-08-01', étape: 'Création du Dossier', complétée: true },
+        { date: '2024-08-02', étape: 'Étude de l\'installation', complétée: true },
+        { date: '2024-08-02', étape: 'Installation du Client', complétée: false },
+        { date: '2024-08-02', étape: 'Configuration de la FiberBox', complétée: false },
+        { date: '2024-08-02', étape: 'Activation des Services', complétée: false },
+        { date: '2024-08-02', étape: 'Client Connecté et Fonctionnel', complétée: false }
+    ];
+
+    const maintenance = [
+        { date: '2024-08-20', étape: 'Panne signalée par le client', complétée: false },
+        { date: '2024-08-20', étape: 'Création du ticket de maintenance', complétée: false },
+        { date: '2024-08-21', étape: 'Maintenance du client', complétée: false },
+        { date: '2024-08-21', étape: 'Client connecté et fonctionnel', complétée: false }
+    ];
+
+    afficherTimeline(historique, 'historique-timeline');
+    afficherTimeline(maintenance, 'maintenance-timeline');
+    
+    // Assurez-vous que les conteneurs sont visibles
+    document.getElementById('historique-timeline').classList.remove('hidden');
+    document.getElementById('maintenance-timeline').classList.remove('hidden');
+});
+
+function afficherTimeline(historique, containerId) {
+    const timelineContainer = document.getElementById(containerId);
+    timelineContainer.innerHTML = ''; // Effacer le contenu précédent
+
+    historique.forEach((step, index) => {
+        const timelineItem = document.createElement('div');
+        timelineItem.classList.add('timeline-item');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.disabled = true; // Désactiver la modification manuelle
+        checkbox.checked = step.complétée; // Cocher si l'étape est complétée
+
+        const label = document.createElement('label');
+        label.textContent = `${step.étape} (${step.date})`;
+        label.classList.add('checkbox-label'); // Ajouter la classe pour le style
+
+        timelineItem.appendChild(checkbox);
+        timelineItem.appendChild(label);
+
+        // Ajouter une flèche si ce n'est pas le dernier élément
+        if (index < historique.length - 1) {
+            const arrow = document.createElement('span');
+            arrow.classList.add('arrow');
+            timelineItem.appendChild(arrow);
+        }
+
+        timelineContainer.appendChild(timelineItem);
+    });
+}
+</script>
+<style>
+  #historique-timeline, #maintenance-timeline {
+  display: flex;
+  overflow-x: auto; /* Permet de faire défiler horizontalement si le contenu dépasse la largeur */
+  padding: 10px;
+  gap: 20px; /* Espacement entre les éléments */
+  border: 1px solid #ddd; /* Bordure autour de la chronologie */
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px; /* Largeur fixe pour chaque élément */
+  padding: 10px;
+  border: 1px solid #007BFF; /* Bordure autour des éléments */
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex-shrink: 0; /* Empêche la réduction de taille */
+}
+
+.timeline-item input[type="checkbox"] {
+  margin-bottom: 10px;
+  color: aquamarine;
+}
+
+.timeline-item label {
+  font-size: 0.9em;
+  color: #333;
+}
+
+.arrow {
+  font-size: 24px;
+  color: #007BFF;
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+</style>
+</body>
+</html>
